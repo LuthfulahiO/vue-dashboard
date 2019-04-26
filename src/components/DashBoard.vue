@@ -1,41 +1,51 @@
 <template>
   <div id="all">
-    <div class="inner-brand">
+    <div class="logo-container">
       <div>
         <font-awesome-icon @click="toggleNav" class="menu" :icon="['fas', 'bars']" size="2x"/>
-        <img class="brand" src="../assets/logo.jpeg">
+        <svgicon class="logo-spec" color="#1479ee" icon="logo"></svgicon>
       </div>
     </div>
     <div style="display: flex; flex-direction: row">
       <div class="side-nav" v-show="display">
         <ul class="side-links">
           <li class="list-link">
-            <svgicon width="25" height="25" color="#fff" icon="baseline-dashboard-24px"></svgicon>
+            <svgicon width="25" height="25" color="#fff" icon="dashboard"></svgicon>
             <span class="span">Dashboard</span>
           </li>
           <li class="list-link">
-            <svgicon width="24" height="24" color="#fff" icon="baseline-shopping_cart-24px"></svgicon>
+            <svgicon width="24" height="24" color="#fff" icon="shopping_cart"></svgicon>
             <span class="span">Products</span>
           </li>
           <li class="list-link">
-            <svgicon width="24" height="24" color="#fff" icon="baseline-description-24px"></svgicon>
+            <svgicon width="24" height="24" color="#fff" icon="description"></svgicon>
             <span class="span">Orders</span>
           </li>
           <li class="list-link">
-            <svgicon width="24" height="24" color="#fff" icon="baseline-local_shipping-24px"></svgicon>
+            <svgicon width="24" height="24" color="#fff" icon="local_shipping"></svgicon>
             <span class="span">Shipping</span>
           </li>
           <li class="list-link">
-            <svgicon width="24" height="24" color="#fff" icon="baseline-insert_chart_outlined-24px"></svgicon>
+            <svgicon width="24" height="24" color="#fff" icon="chart_outlined"></svgicon>
             <span class="span">Analytics</span>
           </li>
           <li class="list-link">
-            <svgicon width="24" height="24" color="#fff" icon="baseline-settings-20px"></svgicon>
+            <svgicon width="24" height="24" color="#fff" icon="settings"></svgicon>
             <span class="span">Settings</span>
           </li>
         </ul>
+        <font-awesome-icon class="comments" :icon="['fas', 'comments']" size="3x"/>
       </div>
       <div class="main">
+        <b-row style="margin-bottom:30px;">
+          <b-col md="4">
+            <h2 style="float:left; color:#1479ee;">Orders</h2>
+          </b-col>
+          <b-col md="5"></b-col>
+          <b-col md="3">
+            <b-input type="text" value="12/02/19 - 13/03/19" class="inputIcn"></b-input>
+          </b-col>
+        </b-row>
         <b-row style="margin-bottom:20px;">
           <b-col md="4">
             <b-card>
@@ -46,9 +56,14 @@
               </b-row>
               <b-row>
                 <b-col md="7">
-                  <span class="num">234</span>
+                  <span class="num">{{analytics.total.total}}</span>
+                  <br>
+                  <i style="color:#ff4141" class="num2">
+                    <font-awesome-icon :icon="['fas', 'arrow-down']"/>
+                    {{analytics.total.diff}}%
+                  </i>
                 </b-col>
-                <b-col md="5">
+                <b-col md="5" class="chart">
                   <svgicon width="100%" color="#3CC480" height="40" icon="Bar Chart-1"></svgicon>
                 </b-col>
               </b-row>
@@ -63,9 +78,14 @@
               </b-row>
               <b-row>
                 <b-col md="7">
-                  <span class="num">234</span>
+                  <span class="num">{{analytics.completed.total}}</span>
+                  <br>
+                  <i style="color:#3cc480" class="num2">
+                    <font-awesome-icon :icon="['fas', 'arrow-up']"/>
+                    {{analytics.completed.diff}}%
+                  </i>
                 </b-col>
-                <b-col md="5">
+                <b-col md="5" class="chart">
                   <svgicon width="100%" color="#55D8FE" height="40" icon="Bar Chart-1"></svgicon>
                 </b-col>
               </b-row>
@@ -80,9 +100,14 @@
               </b-row>
               <b-row>
                 <b-col md="7">
-                  <span class="num">234</span>
+                  <span class="num">{{analytics.abandoned.total}}</span>
+                  <br>
+                  <i style="color:#ff4141" class="num2">
+                    <font-awesome-icon :icon="['fas', 'arrow-down']"/>
+                    {{analytics.abandoned.diff}}%
+                  </i>
                 </b-col>
-                <b-col md="5">
+                <b-col md="5" class="chart">
                   <svgicon width="100%" color="#FF4141" height="40" icon="Bar Chart-1"></svgicon>
                 </b-col>
               </b-row>
@@ -95,7 +120,7 @@
             <span style=" font-size: 20px">Orders History</span>
           </div>
           <div>
-            <table class="table">
+            <table class="table table-responsive">
               <thead>
                 <tr>
                   <th>ORDER ID</th>
@@ -132,7 +157,7 @@
 import '../assets/icons';
 
 export default {
-  name: 'SideBar',
+  name: 'DashBoard',
   data() {
     return {
       display: true,
@@ -143,6 +168,17 @@ export default {
         { id: '0002', description: 'American Eagle Classic Women Ball Sneakers Shoe', payment_method: 'Paystack', shipping_method: 'MAX.NG', status: 'In Transit', date: '12/12/2001' },
         { id: '0003', description: 'American Eagle Classic Women Ball Sneakers Shoe', payment_method: 'Flutterwave', shipping_method: 'MAX.NG', status: 'Completed', date: '12/12/2001' },
       ],
+      analytics: {
+        total: {
+          id: 1, diff: 18.3, total: 234,
+        },
+        completed: {
+          id: 0, diff: 18.3, total: 234,
+        },
+        abandoned: {
+          id: 1, diff: 18.3, total: 234,
+        },
+      },
     };
   },
   methods: {
@@ -158,17 +194,21 @@ export default {
   height: 100%;
   background-color: #fafafa;
 }
-.inner-brand {
+.logo-container {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   background: #1479ee;
   max-width: 240px;
+  position: fixed;
+  z-index: 30;
 }
-.brand {
+.logo-spec {
   border-radius: 30px;
   width: 230px;
   margin: 5px 0px 0px 5px;
+  background: white;
+  color: #1479ee;
 }
 .side-nav {
   height: 100vh;
@@ -179,7 +219,7 @@ export default {
   position: fixed;
   z-index: 3;
   padding-right: 10px;
-  padding-top: 50px;
+  padding-top: 110px;
 }
 .side-links {
   list-style: none;
@@ -217,13 +257,27 @@ export default {
 .num {
   float: left;
   font-size: 24px;
-  font-weight: 900;
+  font-weight: 500;
   margin-top: 10px;
+}
+.num2 {
+  float: left;
+  margin-left: -43px;
+  margin-top: 20px;
+  font-size: 12px;
+  font-style: normal;
+}
+.chart {
+  margin-top: 17px;
 }
 .top-display {
   display: flex;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+.comments {
+  color: white;
+  margin: calc(100% / 2);
 }
 td span {
   border-radius: 70px;
@@ -236,12 +290,16 @@ td span {
   background-color: white;
 }
 td {
-  width: 20px;
+  width: 24%;
+  text-align: center;
+}
+td:nth-child(2) {
+  color: #1479ee;
   text-align: left;
 }
 thead {
   background: #fafafa;
-  color: #e3e3e3;
+  color: #a7a0a0;
 }
 .buttons:hover {
   background: #fff;
@@ -259,32 +317,12 @@ thead {
 .blue {
   background: #55d8fe;
 }
-section {
-  /* padding: 15px; */
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-flow: row;
-  flex-flow: row;
-  flex-wrap: wrap;
-}
-
-article {
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid #ececec;
-  margin: 10px;
-  padding: 20px;
-  flex: auto;
-  border-radius: 5px;
-}
-
-article:first-of-type > button[data-action="start"] {
-  display: none;
-}
-
-h2,
-p {
-  margin-bottom: 10px;
+.inputIcn {
+  background: white url(./../assets/calendar.svg) no-repeat scroll 7px 7px;
+  border-radius: 10px;
+  padding-left: 30px;
+  border: 1px solid #1479ee;
+  width: 195px !important;
 }
 
 @media screen and (max-width: 990px) {
@@ -296,21 +334,8 @@ p {
     flex-basis: calc((100% - 120px) / 2);
   }
 }
-@media (max-width: 1240px) {
-  th:nth-child(2),
-  td:nth-child(2),
-  th:nth-child(4),
-  td:nth-child(4),
-  th:nth-child(6),
-  td:nth-child(6) {
-    display: none;
-  }
-}
 
 @media (max-width: 920px) {
-  .name {
-    display: none;
-  }
   .main {
     margin: 60px 0 0 0;
     width: 100%;
@@ -318,7 +343,7 @@ p {
   .menu {
     display: block;
   }
-  .brand {
+  .logo-spec {
     display: none;
   }
 }
@@ -327,10 +352,10 @@ p {
   .menu {
     display: block !important;
   }
-  .brand {
+  .logo-spec {
     display: none;
   }
-  .inner-brand {
+  .logo-container {
     width: 10px;
   }
 }

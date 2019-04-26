@@ -1,10 +1,11 @@
 /* eslint-disable */
-require('./Bar Chart-1')
-require('./Bar Chart-2')
-require('./Bar Chart')
-require('./baseline-dashboard-24px')
-require('./baseline-description-24px')
-require('./baseline-insert_chart_outlined-24px')
-require('./baseline-local_shipping-24px')
-require('./baseline-settings-20px')
-require('./baseline-shopping_cart-24px')
+require('./Bar Chart-1');
+require('./Bar Chart-2');
+require('./Bar Chart');
+require('./dashboard');
+require('./description');
+require('./chart_outlined');
+require('./local_shipping');
+require('./settings');
+require('./shopping_cart');
+require('./logo');

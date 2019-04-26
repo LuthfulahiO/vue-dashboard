@@ -1,18 +1,16 @@
 <template>
   <div id="app">
-    <SideBar/>
+    <DashBoard/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-import SideBar from './components/SideBar';
+import DashBoard from './components/DashBoard';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
-    SideBar,
+    DashBoard,
   },
 };
 </script>
